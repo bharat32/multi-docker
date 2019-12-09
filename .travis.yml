@@ -1,0 +1,21 @@
+sudo : required
+services:
+    - docker
+
+before_install:
+    - docker build -t bharat/multi-docker -f ./client/Dockerfile.dev ./client
+script:
+    - docker run -e CI=true bharat/multi-docker npm test
+after_success:
+    - docker build -t bharat/mutli-client ./client
+    - docker build -t bharat/multi-nginx ./nginx
+    - docker build -t bharat/multi-server ./server
+    - docker build -t bharat/multi-worker ./worker
+#log in to Docker hub
+    - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# take images and push them to Docker hub
+    - docker push bharat/mutli-client
+    - docker push bharat/multi-nginx
+    - docker push bharat/multi-server
+    - docker push bharat/multi-worker
