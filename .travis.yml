@@ -12,7 +12,7 @@ after_success:
     - docker build -t bharat/multi-server ./server
     - docker build -t bharat/multi-worker ./worker
 #log in to Docker hub
-    - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 # take images and push them to Docker hub
     - docker push bharat/mutli-client
