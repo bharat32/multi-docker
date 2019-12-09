@@ -5,7 +5,7 @@ services:
 before_install:
     - docker build -t 32bharat/multi-docker -f ./client/Dockerfile.dev ./client
 script:
-    - docker run -e CI=true bharat/multi-docker npm test
+    - docker run -e CI=true 32bharat/multi-docker npm test
 after_success:
     - docker build -t 32bharat/mutli-client ./client
     - docker build -t 32bharat/multi-nginx ./nginx
